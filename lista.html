@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de Invetário</title>
+    <link rel="stylesheet" href="css/listStyle.css">
+    
+</head>
+
+<body onload="listItens()">
+
+    <div class="titulo">
+        <h1>Lista de itens</h1>
+    </div>
+    <table class="table" id="lista">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>CRAAI</th>
+                <th>Comarca</th>
+                <th>Órgão</th>
+                <th>Sistema Operacional</th>
+                <th>Disco Rígido (MB)</th>
+                <th>Usuário</th>
+                <th>Memória RAM (MB)</th>
+                <th>Patr. Micro</th>
+                <th>Patr. Estabilizador</th>
+                <th>Patr. Leitor</th>
+                <th>Patr. 2º Leitor</th>
+                <th>Patr. Monitor</th>
+                <th>Patr. 2º Monitor</th>
+                <th>Patr. Impressora</th>
+                <th>Patr. Imp. Etiqueta</th>
+                <th>Patr. Imp. Fiscal</th>
+                <th>Excluir</th>
+            </tr>
+        </thead>
+        <tbody class="tbody">
+
+        </tbody>
+    </table>
+
+    <div class="botoes">
+        <button class="btn" onclick="exportarExcel()" type="button">Exportar
+            CSV</button>
+        <button class="btn" onclick="excluirLista()" type="button">Excluir
+            Lista</button>
+    </div>
+
+    <script src="js/listScript.js"></script>
+</body>
+
+</html>

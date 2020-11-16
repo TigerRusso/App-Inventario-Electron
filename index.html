@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inventário</title>
+    <link rel="stylesheet" href="css/style.css">
+    
+</head>
+
+<body>
+
+    <div class="titulo">
+        <h1>Inventário</h1>
+    </div>
+    <form action="" id="formulario">
+        <section class="local">
+            <div class="local-item">
+                <label for="">CRAAI</label>
+                <select id="crai" onchange="setComarca()">
+                    <option value="0">Angra dos Reis</option>
+                    <option value="1">Barra do Piraí</option>
+                    <option value="2">Cabo Frio</option>
+                    <option value="3">Campos</option>
+                    <option value="4">Duque de Caxias</option>
+                    <option value="5">Itaperuna</option>
+                    <option value="6">Macaé</option>
+                    <option value="7">Niterói</option>
+                    <option value="8">Nova Friburgo</option>
+                    <option value="9">Nova Iguaçu</option>
+                    <option value="10">Petrópolis</option>
+                    <option value="11">Rio de Janeiro</option>
+                    <option value="12">São Gonçalo</option>
+                    <option value="13">Teresópolis</option>
+                    <option value="14">Volta Redonda</option>
+                </select>
+            </div>
+
+            <div class="local-item">
+                <label for="">Comarca</label>
+                <select id="comarca">
+                    <option>Angra dos Reis - Sede</option>
+                    <option>Mangaratiba</option>
+                    <option>Paraty</option>
+                </select>
+            </div>
+
+            <div class="local-item">
+                <label for="">Órgão</label>
+                <input type="text" name="" id="orgao">
+            </div>
+
+        </section>
+
+
+        <section class="itens-micro">
+
+            <div class="form-item">
+                <label for="">Sistema Operacional</label>
+                <input type="text" name="" id="sistema">
+            </div>
+
+            <div class="form-item">
+                <label for="">Disco Rígido (MB)</label>
+                <input type="text" name="" id="hd">
+            </div>
+
+            <div class="form-item">
+                <label for="">Usuário</label>
+                <input type="text" name="" id="user">
+            </div>
+
+            <div class="form-item">
+                <label for="">Memória RAM (MB)</label>
+                <input type="text" name="" id="ram">
+            </div>
+
+            <div class="form-item">
+                <label for="">Patr. Micro</label>
+                <input type="text" name="" id="host">
+            </div>
+
+            <div class="form-item">
+                <label for="">Patr. Estabilizador</label>
+                <input type="text" name="" id="estab">
+            </div>
+
+            <div class="form-item">
+                <label for="">Patr. Leitor</label>
+                <input type="text" name="" id="leitor">
+            </div>
+
+            <div class="form-item">
+                <label for="">Patr. 2º Leitor</label>
+                <input type="text" name="" id="leitor2">
+            </div>
+
+            <div class="form-item">
+                <label for="">Patr. Monitor</label>
+                <input type="text" name="" id="monitor">
+            </div>
+
+            <div class="form-item">
+                <label for="">Patr. 2º Monitor</label>
+                <input type="text" name="" id="monitor2">
+            </div>
+
+            <div class="form-item">
+                <label for="">Patr. Impressora</label>
+                <input type="text" name="" id="impressora">
+            </div>
+
+            <div class="form-item">
+                <label for="">Patr. Imp. Etiqueta</label>
+                <input type="text" name="" id="imp-etiqueta">
+            </div>
+
+            <div class="form-item">
+                <label for="">Patr. Imp. Fiscal</label>
+                <input type="text" name="" id="imp-fiscal">
+            </div>
+        </section>
+
+        <footer>
+            <div class="botoes">
+                <button onclick="getInputs()" class="btn" type="button">Salvar dados</button>
+                <button onclick="openModal()" id="btn-open" class="btn" type="button">Exibir lista</button>
+            </div>
+        </footer>
+        
+    </form>
+
+    <div id="modal-alert" class="modal">
+        <div class="modal-box">
+            <button class="close"><p>+</p></button>
+            <div><img src="assets/erro.png"></div>
+            <p class="modal-text">Texto modal</p>
+        </div>
+    </div>
+    
+
+    <script src="js/script.js"></script>
+</body>
+
+</html>

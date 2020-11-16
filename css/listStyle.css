@@ -1,0 +1,153 @@
+/* Estilo página secundária */
+
+* {
+    padding: 0;
+    margin: 0;
+    font-family: 'Roboto', sans-serif;
+    box-sizing: border-box;
+}
+
+body, html {
+    background: #4e69aa;
+}
+
+.titulo {
+    width: 100%;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+} 
+
+.titulo {
+    color: #fff;
+}
+
+.table {
+    width: 100%;
+    margin: 0 auto;       
+    border-collapse: collapse;
+    background: #fff;    
+}
+
+.table thead tr {
+    display: flex;        
+}
+
+.table thead tr th {
+    width: 150px;
+    height: 50px;
+    padding-top: 5px;    
+    border-right: 1px solid #c9c2c2;
+    text-align: center;
+    color: #ffffff;
+    background: #1b2133;
+}
+
+.table thead tr th:nth-child(1) {
+    width: 70px;
+}
+
+.table thead tr th:nth-child(2) {
+    width: 250px;
+}
+
+.table thead tr th:nth-child(3) {
+    width: 300px;
+}
+
+.table thead tr th:nth-child(7) {
+    width: 300px;
+}
+
+.table thead tr th:nth-child(18) {
+    width: 80px;
+}
+
+tbody tr {
+    width: 100%;
+    display: flex;    
+}
+
+tbody tr td{
+    width: 150px;
+    height: auto;
+    padding-top: 5px;    
+    border-bottom: 1px solid #c4c1c1;
+    border-right: 1px solid rgba(255, 255, 255, 0.24);
+    text-align: center;    
+}
+
+tbody tr td:nth-child(1){
+    width: 70px;
+}
+
+tbody tr td:nth-child(2){
+    width: 250px;
+}
+
+tbody tr td:nth-child(3){
+    width: 300px;
+}
+
+tbody tr td:nth-child(7){
+    width: 300px;
+}
+
+tbody tr td:nth-child(18){
+    width: 80px;
+}
+
+tbody tr:nth-child(even) {
+    background: #ecebeb;
+}
+
+/* Botões */
+
+button {
+    cursor: pointer;
+}
+
+button:focus {
+    outline: none;
+}
+
+.botoes {
+    width: 100%;
+    height: 200px;
+    margin: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.btn {
+    width: 200px;
+    height: 50px;
+    margin: 10px;
+    font-size: 20px;
+    font-weight: 500;
+    color: #1b2133;
+    background: #dfe1ee;
+    border-radius: 5px;
+    border: 2px solid #1b2133;
+    transition: .5s;
+}
+
+.btn:hover {
+    color: #dfe1ee;   
+    background: #1b2133;    
+    border: 2px solid #dfe1ee;
+    transition: .5s;
+}
+
+.btn-lixo {
+    width: 25px;
+    height: 20px;
+    margin-bottom: 5px;
+    background: #d31305;
+    border: 1px solid black;
+    border-radius: 3px;
+    color: #fff;
+    font-size: 16px;
+}
