@@ -15,6 +15,7 @@ require('core-js/modules/es.symbol.async-iterator')
 require('regenerator-runtime/runtime')
 const excel = require('exceljs/dist/es5')
 
+// Funções do frama app
 function minimizar() {
     const win = remote.getCurrentWindow()
     win.minimize()
@@ -23,9 +24,9 @@ function minimizar() {
 function maximizar() {
     const win = remote.getCurrentWindow()
     if (!win.isMaximized()) {
-        win.maximize()        
+        win.maximize()
     } else {
-        win.unmaximize()        
+        win.unmaximize()
     }
 }
 
@@ -89,7 +90,7 @@ function deletaLinha(id) {
                 fs.writeFile(path.join(__dirname, 'itens.json'), JSON.stringify(obj, null, 4), 'utf-8', err => {
                     if (err) throw err
                 })
-                
+
                 return
             }
         }
@@ -104,6 +105,19 @@ function getID(btn) {
         let id = linha.innerHTML
 
         deletaLinha(id)
+    })
+}
+
+// Modal pergunta se o usuário tem certeza da ação
+function showModal() {
+    const modal = document.getElementById("modal-alert")
+    modal.classList.add('show')
+
+    const close = document.querySelector('.close')
+    close.addEventListener('click', () => {
+        modal.classList.remove('show')
+        
+            document.location.reload(true)
     })
 }
 
@@ -132,7 +146,7 @@ function exportarExcel() {
         const workbook = new excel.Workbook()
         const worksheet = workbook.addWorksheet('Inventário')
 
-        // Definindo os cabeçalhos
+        // Definindo os cabeçalhos do Excel
         worksheet.columns = [
             { header: 'CRAAI', key: 'crai' },
             { header: 'Comarca', key: 'comarca' },
@@ -163,12 +177,11 @@ function exportarExcel() {
         // Populando as células
         dados.forEach((e, index) => {
             const rowIndex = index + 2
-
             worksheet.addRow({
                 ...e
             })
         })
-        
+
         // Salvando arquivo onde o usuário decidir
         dialog.showSaveDialog({
             filters: [{
@@ -176,10 +189,10 @@ function exportarExcel() {
                 extensions: ['xlsx']
             }]
         }).then(result => {
-            workbook.xlsx.writeFile(result.filePath)            
-        }).catch(err => {            
+            workbook.xlsx.writeFile(result.filePath)
+        }).catch(err => {
             console.log(err)
-          })
+        })
 
     })
 }

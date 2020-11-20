@@ -1,10 +1,10 @@
 const { app, BrowserWindow, ipcMain, Menu, globalShortcut } = require('electron')
 const path = require('path')
 Menu.setApplicationMenu(false)
-/*
+
 require('electron-reload')(__dirname, {
     electron: require(`${__dirname}/node_modules/electron`)
-}) */
+}) 
 
 let mainWindow;
 let childWindow;
@@ -50,7 +50,7 @@ ipcMain.on('showModal', () => {
         }
     })
     childWindow.loadURL(`file://${path.join(__dirname, 'lista.html')}`)
-    //childWindow.webContents.openDevTools()
+    childWindow.webContents.openDevTools()
     childWindow.once('ready-to-show', () => {
         childWindow.show()
 

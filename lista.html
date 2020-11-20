@@ -32,7 +32,7 @@
 
         </div>
     </div>
-   
+
     <div class="container">
         <div class="container-table">
             <table class="table" id="lista">
@@ -66,8 +66,22 @@
         <div class="botoes">
             <button class="btn" onclick="exportarExcel()" type="button">Exportar
                 CSV</button>
-            <button class="btn" onclick="excluirLista()" type="button">Excluir
+            <button class="btn" onclick="showModal()" type="button">Excluir
                 Lista</button>
+        </div>
+    </div>
+
+    <div id="modal-alert" class="modal">
+        <div class="modal-box">
+            <button class="close">
+                <img src="assets/close-btn.png">
+            </button>
+            <div><img id="img" src="assets/erro.png"></div>
+            <p class="modal-text">Tem certeza desta ação?</p>
+            
+                <button id="confirma">Sim</button>
+                <button id="cancela">Não</button>
+            
         </div>
     </div>
 
