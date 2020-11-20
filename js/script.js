@@ -10,30 +10,21 @@ const hd = document.getElementById('hd')
 const crai = document.querySelector('#crai')
 const comarca = document.getElementById('comarca')
 const itens = { dados: [] }
+const os = require('os')
+const si = require('systeminformation');
 
 
-/* Captura de informações do micro 
-
-spawn('wscript.exe', [path.join(__dirname, 'scriptIvent.vbs')])
 
 
-fs.readFile(path.join(__dirname, 'users.json'), 'utf-8', function (err, data) {
-    if(err) throw err;
-    const obj = JSON.parse(data)
-    
-    obj.usuarios.map(({usuario, host, hardDisk}) => addElement({usuario, host, hardDisk}))
-    
-});
+function minimizar() {
+    const win = remote.getCurrentWindow()
+    win.minimize()
+}
 
-function addElement({usuario, host, hardDisk}) {
-    user.value = usuario
-    hostName.value = host
-    hd.value = hardDisk
-} 
-
-*/
-
-
+function fechar() {
+    const win = remote.getCurrentWindow()
+    win.close()
+}
 
 function salvaDados(dados) {
 
@@ -52,7 +43,7 @@ function salvaDados(dados) {
             fs.appendFile(path.join(__dirname, 'itens.json'), JSON.stringify(itens, null, 4), 'utf-8', err => {
                 if (err) throw err
             })
-
+            showModal('modal-alert', 'Dados salvos com sucesso!', 'assets/ok.png')
         }
     })
 }
@@ -167,7 +158,32 @@ function setComarca() {
     }
 }
 
+function teste() {
+    let sis = document.getElementById('sistema')
+    let ram = document.getElementById('ram')
+    let host = document.getElementById('host')
+    let hd = document.getElementById('hd')
+    let disk = []
+    let hdisk = 0
+    sis.value = `Windows ${os.arch}`
+    ram.value = Math.round((os.totalmem() / 1048576))
+    host.value = os.hostname()
+    si.blockDevices().then(data => {
+        data.map(item => {
+            if (item.physical == 'Local') {
+                disk.push(parseInt(item.size))
 
+            }
+        })
+        for (let i = 0; i < disk.length; i++) {
+
+            hdisk += disk[i]
+        }
+
+        hd.value = Math.round(hdisk / 1048576)
+    })
+
+}
 
 function getInputs() {
 
@@ -215,12 +231,13 @@ function getInputs() {
             let ram = parseInt(inputsValue[6])
             ram = ram.toLocaleString('pt-br')
 
+
             const dados = {
                 id: 1,
                 crai: inputsValue[0],
                 comarca: inputsValue[1],
                 orgao: inputsValue[2],
-                sistema: inputsValue[3],
+                sistema: sistema,
                 hd: hd,
                 user: inputsValue[5],
                 ram: ram,
@@ -234,7 +251,7 @@ function getInputs() {
                 impEtiqueta: inputsValue[14],
                 impFiscal: inputsValue[15]
             }
-            
+
             salvaDados(dados)
 
         } else {
@@ -246,6 +263,9 @@ function getInputs() {
 
             let ram = parseInt(inputsValue[6])
             ram = ram.toLocaleString('pt-br')
+
+            let sistema = `Windows ${os.arch}`
+            inputsValue[3].innerHTML = sistema
 
             const dados = {
                 id: id,
@@ -277,7 +297,7 @@ function getInputs() {
 function showModal(idModal, msg, src) {
     const modal = document.getElementById(idModal)
     const text = document.querySelector('.modal-text')
-    const img = document.querySelector('img')
+    const img = document.getElementById('img')
     modal.classList.add('show')
     text.textContent = msg
     img.src = src
@@ -285,8 +305,11 @@ function showModal(idModal, msg, src) {
     const close = document.querySelector('.close')
     close.addEventListener('click', () => {
         modal.classList.remove('show')
+        if (src == 'assets/ok.png')
+            document.location.reload(true)
     })
 }
+
 
 
 

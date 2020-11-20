@@ -1,18 +1,21 @@
 {
   "name": "electron",
   "version": "1.0.0",
-  "description": "",
+  "description": "App de trabalho",
   "main": "main.js",
   "scripts": {
     "start": "electron ."
   },
   "keywords": [],
-  "author": "",
+  "author": "Thiago Freitas",
   "license": "ISC",
   "dependencies": {
-    "@babel/polyfill": "^7.12.1",    
+    "@babel/polyfill": "^7.12.1",
     "electron-reload": "^1.5.0",
-    "exceljs": "^4.2.0"
+    "electron-squirrel-startup": "^1.0.0",
+    "exceljs": "^4.2.0",
+    "core-js": "^3.6.5",
+    "systeminformation": "^4.30.1"
   },
   "devDependencies": {
     "electron": "^10.1.5",

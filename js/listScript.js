@@ -15,6 +15,25 @@ require('core-js/modules/es.symbol.async-iterator')
 require('regenerator-runtime/runtime')
 const excel = require('exceljs/dist/es5')
 
+function minimizar() {
+    const win = remote.getCurrentWindow()
+    win.minimize()
+}
+
+function maximizar() {
+    const win = remote.getCurrentWindow()
+    if (!win.isMaximized()) {
+        win.maximize()        
+    } else {
+        win.unmaximize()        
+    }
+}
+
+function fechar() {
+    const win = remote.getCurrentWindow()
+    win.close()
+}
+
 function listItens() {
 
     const tbody = document.querySelector('tbody')
@@ -36,7 +55,9 @@ function listItens() {
 
                 if (cont == 16) {
                     var btn = document.createElement('button')
-                    btn.textContent = 'x'
+                    var img = document.createElement('img')
+                    img.src = 'assets/close-btn.png'
+                    btn.appendChild(img)
                     btn.classList.add('btn-lixo')
                     let td = document.createElement('td')
                     td.appendChild(btn)
@@ -68,12 +89,12 @@ function deletaLinha(id) {
                 fs.writeFile(path.join(__dirname, 'itens.json'), JSON.stringify(obj, null, 4), 'utf-8', err => {
                     if (err) throw err
                 })
-                console.log(index)
-                console.log(obj.dados)
+                
                 return
             }
         }
     })
+    document.location.reload(true)
 }
 
 function getID(btn) {
@@ -98,6 +119,7 @@ function excluirLista() {
         })
 
     })
+    document.location.reload(true)
 }
 
 function exportarExcel() {
