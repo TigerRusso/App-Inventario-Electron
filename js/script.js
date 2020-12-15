@@ -1,17 +1,12 @@
-const { strict } = require('assert')
-const { execFile } = require('child_process')
-const fs = require('fs')
+const fs = require('fs');
+const os = require('os');
+const si = require('systeminformation')
 const { remote, ipcRenderer } = require('electron')
 const path = require('path')
-const spawn = require('child_process').spawnSync
-const user = document.getElementById('user')
-const hostName = document.getElementById('host')
-const hd = document.getElementById('hd')
 const crai = document.querySelector('#crai')
 const comarca = document.getElementById('comarca')
 const itens = { dados: [] }
-const os = require('os')
-const si = require('systeminformation');
+
 
 
 
@@ -25,6 +20,23 @@ function fechar() {
     const win = remote.getCurrentWindow()
     win.close()
 }
+
+// Teste Stream
+/*
+function goStream() {
+    let data = '' 
+    const readStream = fs.createReadStream(path.join(__dirname, 'itens.json')).setEncoding('utf-8')
+    readStream.on('data', chunk => {
+        data += chunk
+    })
+
+    readStream.on('end', () => {
+        data = JSON.parse(data)
+        console.log(data)
+    })
+} */
+
+// Fim Teste Stream
 
 function salvaDados(dados) {
 
@@ -158,37 +170,38 @@ function setComarca() {
     }
 }
 
-function teste() {
+function getInfoSistem() {
     let sis = document.getElementById('sistema')
     let ram = document.getElementById('ram')
     let host = document.getElementById('host')
     let hd = document.getElementById('hd')
     let disk = []
     let hdisk = 0
-    sis.value = `Windows ${os.arch}`
+    
     ram.value = Math.round((os.totalmem() / 1048576))
     host.value = os.hostname()
+    si.osInfo().then(data => {        
+        sis.value = `${data.distro} ${data.arch}`
+    })
+    
     si.blockDevices().then(data => {
         data.map(item => {
             if (item.physical == 'Local') {
                 disk.push(parseInt(item.size))
-
             }
         })
         for (let i = 0; i < disk.length; i++) {
-
             hdisk += disk[i]
         }
-
         hd.value = Math.round(hdisk / 1048576)
     })
-
 }
 
 function getInputs() {
 
     let crai = document.getElementById('crai').value
     const comarca = document.getElementById('comarca').value
+    const tipoUser = document.getElementById('tipo-user').value
     const inputs = document.querySelectorAll('input')
     const craiOpts = document.querySelectorAll('#crai > *')
     const craiList = []
@@ -202,7 +215,7 @@ function getInputs() {
     }
 
     crai = parseInt(crai)
-    const inputsValue = [craiList[crai], comarca]
+    const inputsValue = [craiList[crai], comarca, tipoUser]
 
     // Pegando todos os inputs
     for (let el in inputs) {
@@ -210,7 +223,7 @@ function getInputs() {
             inputsValue.push(inputs[el].value)
         }
     }
-
+    console.log(inputsValue)
     // Validando os inputs
     for (let el in inputsValue) {
         if (inputsValue[el] == null || inputsValue[el] == '') {
@@ -225,31 +238,48 @@ function getInputs() {
 
         if (data == '' || data == null || data == undefined) {
 
-            let hd = parseInt(inputsValue[4])
+            let hd = parseInt(inputsValue[10])
             hd = hd.toLocaleString('pt-br')
 
-            let ram = parseInt(inputsValue[6])
+            let ram = parseInt(inputsValue[11])
             ram = ram.toLocaleString('pt-br')
 
+            //let sistema = `Windows ${os.arch}`
+            //inputsValue[].innerHTML = sistema
 
             const dados = {
                 id: 1,
                 crai: inputsValue[0],
                 comarca: inputsValue[1],
-                orgao: inputsValue[2],
-                sistema: sistema,
+                endereco: inputsValue[3],
+                orgao: inputsValue[4],
+                user: inputsValue[5],  
+                matricula: inputsValue[6],
+                tipoUser: inputsValue[2],
+                host: inputsValue[7], 
+                modeloHost: inputsValue[8],
+                sistema: inputsValue[9],
                 hd: hd,
-                user: inputsValue[5],
-                ram: ram,
-                host: inputsValue[7],
-                estab: inputsValue[8],
-                leitor: inputsValue[9],
-                leitor2: inputsValue[10],
-                monitor: inputsValue[11],
-                monitor2: inputsValue[12],
-                impressora: inputsValue[13],
-                impEtiqueta: inputsValue[14],
-                impFiscal: inputsValue[15]
+                ram: ram,   
+                monitor: inputsValue[12],
+                modeloMonitor: inputsValue[13],
+                monitor2: inputsValue[14],  
+                modeloMonitor2: inputsValue[15],        
+                estab: inputsValue[16],
+                modeloEstab: inputsValue[17],               
+                impressora: inputsValue[18],
+                modeloImpressora: inputsValue[19],                
+                impEtiqueta: inputsValue[20],
+                modeloImpEtiqueta: inputsValue[21],
+                impFiscal: inputsValue[22],
+                modeloImpFiscal: inputsValue[23],
+                leitor: inputsValue[24],
+                modeloLeitor: inputsValue[25],
+                scanner: inputsValue[26],
+                modeloScanner: inputsValue[27],
+                periferico: inputsValue[28],
+                modeloPeriferico: inputsValue[29],
+                notas: inputsValue[30]
             }
 
             salvaDados(dados)
@@ -258,39 +288,56 @@ function getInputs() {
             const obj = JSON.parse(data)
             id = obj.dados.length + 1
 
-            let hd = parseInt(inputsValue[4])
+            let hd = parseInt(inputsValue[10])
             hd = hd.toLocaleString('pt-br')
-
-            let ram = parseInt(inputsValue[6])
+            
+            let ram = parseInt(inputsValue[11])
             ram = ram.toLocaleString('pt-br')
 
-            let sistema = `Windows ${os.arch}`
-            inputsValue[3].innerHTML = sistema
+            //let sistema = `Windows ${os.arch}`
+            //inputsValue[4].innerHTML = sistema
 
             const dados = {
                 id: id,
                 crai: inputsValue[0],
                 comarca: inputsValue[1],
-                orgao: inputsValue[2],
-                sistema: inputsValue[3],
+                endereco: inputsValue[3],
+                orgao: inputsValue[4],
+                user: inputsValue[5],  
+                matricula: inputsValue[6],
+                tipoUser: inputsValue[2],
+                host: inputsValue[7], 
+                modeloHost: inputsValue[8],
+                sistema: inputsValue[9],
                 hd: hd,
-                user: inputsValue[5],
-                ram: ram,
-                host: inputsValue[7],
-                estab: inputsValue[8],
-                leitor: inputsValue[9],
-                leitor2: inputsValue[10],
-                monitor: inputsValue[11],
-                monitor2: inputsValue[12],
-                impressora: inputsValue[13],
-                impEtiqueta: inputsValue[14],
-                impFiscal: inputsValue[15]
+                ram: ram,   
+                monitor: inputsValue[12],
+                modeloMonitor: inputsValue[13],
+                monitor2: inputsValue[14],  
+                modeloMonitor2: inputsValue[15],        
+                estab: inputsValue[16],
+                modeloEstab: inputsValue[17],               
+                impressora: inputsValue[18],
+                modeloImpressora: inputsValue[19],                
+                impEtiqueta: inputsValue[20],
+                modeloImpEtiqueta: inputsValue[21],
+                impFiscal: inputsValue[22],
+                modeloImpFiscal: inputsValue[23],
+                leitor: inputsValue[24],
+                modeloLeitor: inputsValue[25],
+                scanner: inputsValue[26],
+                modeloScanner: inputsValue[27],
+                periferico: inputsValue[28],
+                modeloPeriferico: inputsValue[29],
+                notas: inputsValue[30]
             }
 
             salvaDados(dados)
+            
         }
-
+       
     })
+    
 }
 
 // Modal reutilizável
@@ -305,7 +352,8 @@ function showModal(idModal, msg, src) {
     const close = document.querySelector('.close')
     close.addEventListener('click', () => {
         modal.classList.remove('show')
-        if (src == 'assets/ok.png')
+
+        if (msg  == 'Dados salvos com sucesso!')
             document.location.reload(true)
     })
 }

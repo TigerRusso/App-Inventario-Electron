@@ -1,10 +1,10 @@
 const { app, BrowserWindow, ipcMain, Menu, globalShortcut } = require('electron')
 const path = require('path')
 Menu.setApplicationMenu(false)
-
+/*
 require('electron-reload')(__dirname, {
     electron: require(`${__dirname}/node_modules/electron`)
-}) 
+})  */
 
 let mainWindow;
 let childWindow;
@@ -15,7 +15,7 @@ app.on('ready', () => {
     mainWindow = new BrowserWindow({
         show: false,
         width: 1200,
-        height: 600,
+        height: 750,
         icon: path.join(__dirname, './assets/iconApp.ico'),
         resizable: false,     
         frame: false,
@@ -46,11 +46,10 @@ ipcMain.on('showModal', () => {
         webPreferences: {
             enableRemoteModule: true,
             nodeIntegration: true
-
         }
     })
     childWindow.loadURL(`file://${path.join(__dirname, 'lista.html')}`)
-    childWindow.webContents.openDevTools()
+    //childWindow.webContents.openDevTools()
     childWindow.once('ready-to-show', () => {
         childWindow.show()
 
@@ -61,7 +60,7 @@ app.on('activate', () => {
     if (BrowserWindow.getAllWindows().length === 0)
         createWindow()
 })
-
+/*
 if (handleSquirrelEvent(app)) {
     // squirrel event handled and app will exit in 1000ms, so don't do anything else
     return;
@@ -130,4 +129,4 @@ function handleSquirrelEvent(application) {
             application.quit();
             return true;
     }
-};
+}; */

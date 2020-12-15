@@ -9,7 +9,7 @@
 
 </head>
 
-<body onload="teste()">
+<body onload="getInfoSistem()">
 
     <div class="frame">
         <div class="icon">
@@ -63,135 +63,219 @@
                         <option>Paraty</option>
                     </select>
                 </div>
-
                 <div class="form">
-
-                    <input type="text" name="orgao" id="orgao"
-                        autocomplete="off" required>
-                    <label for="orgao" class="label-form">
-                        <span class="content-form">Órgão</span>
+                    <input type="text" name="endereco" id="endereco"
+                        autocomplete="on" required>
+                    <label for="endereco" class="label-form">
+                        <span class="content-form">Endereço</span>
                     </label>
                 </div>
-
+                
             </section>
 
 
             <section class="itens-micro">
-
                 <div class="form">
-
-                    <input type="text" name="sistema" id="sistema"
-                        autocomplete="off" required>
-                    <label for="sistema" class="label-form">
-                        <span class="content-form">Sistema Operacional</span>
+                    <input type="text" name="orgao" id="orgao"
+                        autocomplete="on" required>
+                    <label for="orgao" class="label-form">
+                        <span class="content-form">Órgão</span>
                     </label>
                 </div>
-
                 <div class="form">
-
-                    <input type="text" name="hd" id="hd" autocomplete="off"
-                        required>
-                    <label for="hd" class="label-form">
-                        <span class="content-form">Disco Rígido (MB)</span>
-                    </label>
-                </div>
-
-                <div class="form">
-
                     <input type="text" name="usuario" id="user"
                         autocomplete="off" required>
                     <label for="usuario" class="label-form">
                         <span class="content-form">Usuário</span>
                     </label>
                 </div>
-
                 <div class="form">
-
-                    <input type="text" name="memoria" id="ram"
+                    <input type="text" name="matricula" id="matricula"
                         autocomplete="off" required>
-                    <label for="memoria" class="label-form">
-                        <span class="content-form">Memória RAM (MB)</span>
+                    <label for="matricula" class="label-form">
+                        <span class="content-form">Matrícula</span>
                     </label>
                 </div>
-
+                <div class="form-user">
+                    <label for="">Perfil do Usuário</label>
+                    <select id="tipo-user">
+                        <option>Membro</option>
+                        <option>Servidor</option>
+                        <option>Estagiário</option>
+                        <option>Terceirizado</option>
+                    </select>
+                </div>
                 <div class="form">
-
                     <input type="text" name="micro" id="host" autocomplete="off"
                         required>
                     <label for="micro" class="label-form">
                         <span class="content-form">Patr. Micro</span>
                     </label>
                 </div>
-
                 <div class="form">
-
-                    <input type="text" name="estab" id="estab"
-                        autocomplete="off" required>
-                    <label for="estab" class="label-form">
-                        <span class="content-form">Patr. Estabilizador</span>
+                    <input type="text" name="modelo-micro" id="modelo-micro" autocomplete="off"
+                        required>
+                    <label for="modelo-micro" class="label-form">
+                        <span class="content-form">Modelo do Micro</span>
+                    </label>
+                </div>
+                <div class="form">
+                    <input type="text" name="sistema" id="sistema"
+                        autocomplete="on" required>
+                    <label for="sistema" class="label-form">
+                        <span class="content-form">Sistema Operacional</span>
                     </label>
                 </div>
 
                 <div class="form">
-
-                    <input type="text" name="leitor" id="leitor"
-                        autocomplete="off" required>
-                    <label for="leitor" class="label-form">
-                        <span class="content-form">Patr. Leitor</span>
+                    <input type="text" name="hd" id="hd" autocomplete="off"
+                        required>
+                    <label for="hd" class="label-form">
+                        <span class="content-form">Disco Rígido (MB)</span>
                     </label>
-                </div>
+                </div>                
 
                 <div class="form">
-
-                    <input type="text" name="leitor2" id="leitor2"
+                    <input type="text" name="memoria" id="ram"
                         autocomplete="off" required>
-                    <label for="leitor2" class="label-form">
-                        <span class="content-form">Patr. 2º Leitor</span>
+                    <label for="memoria" class="label-form">
+                        <span class="content-form">Memória RAM (MB)</span>
                     </label>
                 </div>
-
                 <div class="form">
-
                     <input type="text" name="monitor" id="monitor"
                         autocomplete="off" required>
                     <label for="monitor" class="label-form">
                         <span class="content-form">Patr. Monitor</span>
                     </label>
                 </div>
+                <div class="form">
+                    <input type="text" name="modelo-monitor" id="modelo-monitor"
+                        autocomplete="off" required>
+                    <label for="modelo-monitor" class="label-form">
+                        <span class="content-form">Modelo do Monitor</span>
+                    </label>
+                </div>
 
                 <div class="form">
-
                     <input type="text" name="monitor2" id="monitor2"
                         autocomplete="off" required>
                     <label for="monitor2" class="label-form">
                         <span class="content-form">Patr. 2º Monitor</span>
                     </label>
                 </div>
+                <div class="form">
+                    <input type="text" name="modelo-monitor2" id="modelo-monitor2"
+                        autocomplete="off" required>
+                    <label for="modelo-monitor2" class="label-form">
+                        <span class="content-form">Modelo do 2º Monitor</span>
+                    </label>
+                </div>      
 
                 <div class="form">
-
+                    <input type="text" name="estab" id="estab"
+                        autocomplete="off" required>
+                    <label for="estab" class="label-form">
+                        <span class="content-form">Patr. Estabilizador</span>
+                    </label>
+                </div>
+                <div class="form">
+                    <input type="text" name="modelo-estab" id="modelo-estab"
+                        autocomplete="off" required>
+                    <label for="modelo-estab" class="label-form">
+                        <span class="content-form">Modelo do Estabilizador</span>
+                    </label>
+                </div>              
+               
+                <div class="form">
                     <input type="text" name="impressora" id="impressora"
                         autocomplete="off" required>
                     <label for="impressora" class="label-form">
                         <span class="content-form">Patr. Impressora</span>
                     </label>
                 </div>
-
                 <div class="form">
-
-                    <input type="text" name="etiqueta" id="imp-etiqueta"
+                    <input type="text" name="modelo-impressora" id="modelo-impressora"
                         autocomplete="off" required>
-                    <label for="etiqueta" class="label-form">
-                        <span class="content-form">Patr. Imp. Etiqueta</span>
+                    <label for="modelo-impressora" class="label-form">
+                        <span class="content-form">Modelo da Impressora</span>
                     </label>
                 </div>
-
                 <div class="form">
-
                     <input type="text" name="fiscal" id="imp-fiscal"
                         autocomplete="off" required>
                     <label for="fiscal" class="label-form">
                         <span class="content-form">Patr. Imp. Fiscal</span>
+                    </label>
+                </div>
+                <div class="form">
+                    <input type="text" name="modelo-fiscal" id="modelo-imp-fiscal"
+                        autocomplete="off" required>
+                    <label for="modelo-fiscal" class="label-form">
+                        <span class="content-form">Modelo da Imp. Fiscal</span>
+                    </label>
+                </div>
+                <div class="form">
+                    <input type="text" name="etiqueta" id="imp-etiqueta"
+                        autocomplete="off" required>
+                    <label for="etiqueta" class="label-form">
+                        <span class="content-form">Patr. Imp. Térmica</span>
+                    </label>
+                </div>
+                <div class="form">
+                    <input type="text" name="modelo-etiqueta" id="modelo-imp-etiqueta"
+                        autocomplete="off" required>
+                    <label for="modelo-etiqueta" class="label-form">
+                        <span class="content-form">Modelo da Imp. Térmica</span>
+                    </label>
+                </div>
+                <div class="form">
+                    <input type="text" name="leitor" id="leitor"
+                        autocomplete="off" required>
+                    <label for="leitor" class="label-form">
+                        <span class="content-form">Patr. Leitor</span>
+                    </label>
+                </div>
+                <div class="form">
+                    <input type="text" name="modelo-leitor" id="modelo-leitor"
+                        autocomplete="off" required>
+                    <label for="modelo-leitor" class="label-form">
+                        <span class="content-form">Modelo do Leitor</span>
+                    </label>
+                </div>
+                <div class="form">
+                    <input type="text" name="scanner" id="scanner"
+                        autocomplete="off" required>
+                    <label for="scanner" class="label-form">
+                        <span class="content-form">Scanner</span>
+                    </label>
+                </div>
+                <div class="form">
+                    <input type="text" name="modelo-scanner" id="modelo-scanner"
+                        autocomplete="off" required>
+                    <label for="modelo-scanner" class="label-form">
+                        <span class="content-form">Modelo do Scanner</span>
+                    </label>
+                </div>
+                <div class="form">
+                    <input type="text" name="periferico" id="periferico"
+                        autocomplete="off" required>
+                    <label for="periferico" class="label-form">
+                        <span class="content-form">Patr. Outro Periférico</span>
+                    </label>
+                </div>
+                <div class="form">
+                    <input type="text" name="modelo-periferico" id="modelo-periferico"
+                        autocomplete="off" required>
+                    <label for="modelo-periferico" class="label-form">
+                        <span class="content-form">Modelo do Periférico</span>
+                    </label>
+                </div>
+                <div class="form">
+                    <input type="text" name="anote" id="anote"
+                        autocomplete="off" required>
+                    <label for="anote" class="label-form">
+                        <span class="content-form">Outras anotações</span>
                     </label>
                 </div>
             </section>

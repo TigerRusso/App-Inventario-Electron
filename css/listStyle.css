@@ -84,14 +84,15 @@ body, html {
     height: 80%;
     display: flex;
     flex-direction: column;
-    margin: 50px auto;
+    margin: 0px auto;
     overflow: scroll;
+    border-top: none;
     border: 1px solid #fafafa;
-    border-radius: 5px;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
 }
 
 /* Barra de rolagem */
-
 .container-table::-webkit-scrollbar-track {
     box-shadow: inset 0 0 6px rgba(0, 0, 0, 1);
 	border-radius: 10px;
@@ -110,23 +111,45 @@ body, html {
 	background-color: #359AEB;
 }
 
-
 .table {
     width: 900px;
     margin: 0 auto;       
     border-collapse: collapse;
     background: #fafafa;  
-    
+    position: relative;
 }
 
-
-.table thead tr {
-    display: flex;  
-      
+/* Barra de título fixa */
+.bar-top {
+    width: 100%;
+    height: 50px;    
+    margin-top: 50px;   
+    overflow: hidden;    
+    border: 1px solid #fafafa;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    border-bottom: none;
 }
 
-.table thead tr th {
-    width: 150px;
+#bar-top-table {
+    width: 100%;
+    margin: 0 auto;       
+    border-collapse: collapse;
+    background: #fafafa;  
+    position: relative;
+}
+
+#bar-top-table thead {
+    position: absolute;  
+    top: 0px;    
+}
+
+#bar-top-table thead tr {
+    display: flex;        
+}
+
+#bar-top-table thead tr th {
+    width: 200px;
     height: 50px;
     padding-top: 15px;        
     text-align: center;
@@ -134,43 +157,66 @@ body, html {
     background: #222222;
 }
 
-.table thead tr th:nth-child(1) {
-    width: 70px;
+#bar-top-table thead tr th:nth-child(1) {
+    width: 50px;
 }
 
-.table thead tr th:nth-child(2) {
+#bar-top-table thead tr th:nth-child(2) {
     width: 250px;
 }
 
-.table thead tr th:nth-child(3) {
+#bar-top-table thead tr th:nth-child(3) {
     width: 300px;
 }
 
-.table thead tr th:nth-child(7) {
+#bar-top-table thead tr th:nth-child(4) {
     width: 300px;
 }
 
-.table thead tr th:nth-child(18) {
-    width: 80px;
+#bar-top-table thead tr th:nth-child(5) {
+    width: 250px;
+}
+
+#bar-top-table thead tr th:nth-child(7) {
+    width: 300px;
+}
+
+#bar-top-table thead tr th:nth-child(11) {
+    width: 300px;
+}
+
+/* Fim */
+
+tbody {
+    display: block;
+    margin-top: 0px;    
 }
 
 tbody tr {
     width: 100%;
-    display: flex;    
+    height: auto;
+    display: flex;     
+    
+}
+
+tbody tr:hover {
+    background: #acc8ec;   
 }
 
 tbody tr td{
-    width: 150px;
-    height: auto;
-    padding-top: 5px;    
-    border-bottom: 1px solid #c4c1c1;
-    
+    width: 200px;
+    height: auto;    
+    padding-top: 10px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #c4c1c1;    
     text-align: center;    
     color: #222222;
+    position: relative;
+    word-break: break-all;
 }
 
 tbody tr td:nth-child(1){
-    width: 70px;
+    width: 50px;
 }
 
 tbody tr td:nth-child(2){
@@ -181,20 +227,36 @@ tbody tr td:nth-child(3){
     width: 300px;
 }
 
-tbody tr td:nth-child(7){
+tbody tr td:nth-child(4){
     width: 300px;
 }
 
-tbody tr td:nth-child(18){
-    width: 80px;
+tbody tr td:nth-child(5){
+    width: 250px;
+}
+
+tbody tr td:nth-child(7){
+    width: 300px;
+    height: auto;
+}
+
+tbody tr td:nth-child(11){
+    width: 300px;
+}
+
+tbody tr td:nth-child(31){
+    width: 190px;
 }
 
 tbody tr:nth-child(even) {
     background: #e0dfdf;
 }
 
-/* Botões */
+tbody tr:nth-child(even):hover {
+    background: #acc8ec;
+}
 
+/* Botões */
 button {
     cursor: pointer;
 }
@@ -235,13 +297,15 @@ button:focus {
 .btn-lixo {
     width: 25px;
     height: 25px;
-    margin-bottom: 5px;
+    top: 7px;
+    bottom: 5px;
     background: #222222;
     border: 1px solid black;
     border-radius: 3px;
     color: #fff;
     font-size: 16px;
     transition: all .3s;
+    position: absolute;
 }
 
 .btn-lixo:hover {
@@ -251,7 +315,8 @@ button:focus {
 .btn-lixo img {
     width: 15px;
     height: 15px;
-    margin-top: 3px;
+    margin-top: 4px;
+    pointer-events: none;
 }
 
 /* Modal */
@@ -266,6 +331,23 @@ button:focus {
     display: none;
     justify-content: center;
     align-items: center;
+}
+
+.close {
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    border: 2px solid #fff;
+    background: #3b5998;
+    color: #fff;          
+    position: absolute;
+    right: -6px;
+    top: -6px;
+    box-shadow: 0 4px 4px 0 rgba(0, 0, 0, .3);
+}
+
+.close:focus {
+    outline: none;
 }
 
 .modal .close img {
@@ -294,8 +376,8 @@ button:focus {
 }
 
 .modal-box {
-    width: 400px;
-    height: 200px;
+    width: 500px;
+    height: 250px;
     border: 1px solid #1d1c1c;
     border-radius: 5px;
     background: #fff;
@@ -306,17 +388,18 @@ button:focus {
     width: 100px;
     height: 100px;
     text-align: center;
-    margin: 10px auto 0;
+    margin: 10px auto 10px;
     padding-top: 10px;
     border-radius: 50%;
     background: #fff;
 }
 
-.modal-box #confirma {
-    width: 100px;
-    height: 30px;
-    margin-top: 10px;
-    margin-left: 90px;    
+.modal-box .confirma {
+    width: 150px;
+    height: 50px;
+    margin-top: 30px;
+    margin-left: 85px;  
+    font-size: 20px;  
     color: #fafafa;
     background: #3d3d3d;
     border-radius: 5px;
@@ -324,55 +407,31 @@ button:focus {
     transition: .5s;
 }
 
-.modal-box #confirma:hover {
-    color: #359AEB;   
-    background: #222222;    
-    border: 2px solid #359AEB;
-    transition: .5s;
-}
-
-.modal-box #cancela {
-    width: 100px;
-    height: 30px;
-    margin-top: 20px;
-    margin-left: 10px;
-    color: #fafafa;
-    background: #3d3d3d;
-    border-radius: 5px;
-    border: 2px solid #fafafa;
-    transition: .5s;
-}
-
-.modal-box #cancela:hover {
-    background: #3b5998;
-    color: #ffffff;  
+.modal-box .confirma:hover {
+    color: #222222;   
+    background: #fafafa;    
     border: 2px solid #222222;
     transition: .5s;
 }
 
-.close {
-    width: 45px;
-    height: 45px;
-    border-radius: 50%;
-    border: 2px solid #fff;
-    background: #3b5998;
-    color: #fff;          
-    position: absolute;
-    right: -6px;
-    top: -6px;
-    box-shadow: 0 4px 4px 0 rgba(0, 0, 0, .3);
+.modal-box .cancela {
+    width: 150px;
+    height: 50px;
+    margin-top: 20px;
+    margin-left: 20px;
+    font-size: 20px;
+    color: #fafafa;
+    background: #3d3d3d;
+    border-radius: 5px;
+    border: 2px solid #fafafa;
+    transition: .5s;
 }
 
-.close:focus {
-    outline: none;
-}
-
-.close p {
-    transform: rotate(45deg);
-    transform-origin: center;
-    text-align: center;
-    font-size: 36px; 
-    padding: 0 3px 3px 0px;
+.modal-box .cancela:hover {
+    color: #222222;   
+    background: #fafafa;    
+    border: 2px solid #222222;
+    transition: .5s;
 }
 
 .modal-text {
@@ -380,3 +439,89 @@ button:focus {
     font-size: 20px;
 }
 
+/**===== nest5 =====*/
+.load {
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, .5);
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 200;
+    display: none;
+    justify-content: center;
+    align-items: center;
+}
+
+.load.show {
+    display: flex;
+}
+
+#nest5 {
+    display: block;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    height: 50px;
+    width: 50px;
+    margin: -25px 0 0 -25px;
+    border: 2px solid transparent;
+    border-top-color: #359AEB;
+    border-radius: 50%;
+    -webkit-animation: spin11 2s linear infinite;
+            animation: spin11 2s linear infinite;
+  }
+  
+  #nest5:before {
+    content: "";
+    position: absolute;
+    top: 7px;
+    right: 7px;
+    bottom: 7px;
+    left: 7px;
+    border: 2px solid transparent;
+    border-radius: 50%;
+    border-top-color: #F5F5F5;
+    -webkit-animation: spin11 3s linear infinite;
+            animation: spin11 3s linear infinite;
+  }
+  
+  #nest5:after {
+    content: "";
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    bottom: 15px;
+    left: 15px;
+    border: 2px solid transparent;
+    border-radius: 50%;
+    border-top-color: #3d3d3d;
+    -webkit-animation: spin11 1.5s linear infinite;
+            animation: spin11 1.5s linear infinite;
+  }
+  
+  @-webkit-keyframes spin11 {
+    from {
+      -webkit-transform: rotate(0deg);
+              transform: rotate(0deg);
+    }
+    to {
+      -webkit-transform: rotate(359deg);
+              transform: rotate(359deg);
+    }
+  }
+  @keyframes spin11 {
+    from {
+      -webkit-transform: rotate(0deg);
+              transform: rotate(0deg);
+      -webkit-transform: rotate(0deg);
+              transform: rotate(0deg);
+    }
+    to {
+      -webkit-transform: rotate(359deg);
+              transform: rotate(359deg);
+      -webkit-transform: rotate(359deg);
+              transform: rotate(359deg);
+    }
+  }
+  /** END of nest5*/

@@ -9,7 +9,7 @@
 
 </head>
 
-<body onload="listItens()">
+<body id="full-table">
 
     <div class="frame">
         <div class="icon">
@@ -21,43 +21,63 @@
 
         <div class="btn-window">
             <button class="btn-win" onclick="minimizar()">
-                <img src="assets/min-btn.png" alt="">
+                <img src="assets/min-btn.png">
             </button>
             <button class="btn-win" onclick="maximizar()">
-                <img src="assets/max-btn.png" alt="">
+                <img src="assets/max-btn.png">
             </button>
             <button class="btn-win" onclick="fechar()">
-                <img src="assets/close-btn.png" alt="">
+                <img src="assets/close-btn.png">
             </button>
 
         </div>
     </div>
 
     <div class="container">
-        <div class="container-table">
-            <table class="table" id="lista">
-                <thead>
+        <div class="bar-top">
+            <table id="bar-top-table">
+                <thead id="bar-top-table-title">
                     <tr>
                         <th>ID</th>
                         <th>CRAAI</th>
                         <th>Comarca</th>
+                        <th>Endereço</th>
                         <th>Órgão</th>
+                        <th>Usuário</th>
+                        <th>Matrícula</th>
+                        <th>Perfil do Usuário</th>
+                        <th>Patr. Micro</th>
+                        <th>Modelo do Micro</th>
                         <th>Sistema Operacional</th>
                         <th>Disco Rígido (MB)</th>
-                        <th>Usuário</th>
                         <th>Memória RAM (MB)</th>
-                        <th>Patr. Micro</th>
-                        <th>Patr. Estabilizador</th>
-                        <th>Patr. Leitor</th>
-                        <th>Patr. 2º Leitor</th>
                         <th>Patr. Monitor</th>
+                        <th>Modelo do Monitor</th>
                         <th>Patr. 2º Monitor</th>
+                        <th>Modelo do 2º Monitor</th>
+                        <th>Patr. Estabilizador</th>
+                        <th>Modelo do Estabilizador</th>
                         <th>Patr. Impressora</th>
-                        <th>Patr. Imp. Etiqueta</th>
+                        <th>Modelo da Impressora</th>
                         <th>Patr. Imp. Fiscal</th>
+                        <th>Modelo da Imp. Fiscal</th>
+                        <th>Patr. Imp. Térmica</th>
+                        <th>Modelo da Imp. Térmica</th>
+                        <th>Patr. Leitor</th>
+                        <th>Modelo do Leitor</th>
+                        <th>Scanner</th>
+                        <th>Modelo do Scanner</th>
+                        <th>Patr. Outro Periférico</th>
+                        <th>Modelo do Periférico</th>
+                        <th>Outras anotações</th>
                         <th>Excluir</th>
                     </tr>
                 </thead>
+            </table>
+        </div>
+        <div class="container-table">
+            <table class="table" id="lista">
+
                 <tbody class="tbody">
 
                 </tbody>
@@ -71,17 +91,28 @@
         </div>
     </div>
 
+    <!-- Loading -->
+    <div class="load">
+        <div id="nest5"></div>        
+    </div>
+    <!-- Loading -->
+
     <div id="modal-alert" class="modal">
         <div class="modal-box">
-            <button class="close">
-                <img src="assets/close-btn.png">
-            </button>
             <div><img id="img" src="assets/erro.png"></div>
-            <p class="modal-text">Tem certeza desta ação?</p>
-            
-                <button id="confirma">Sim</button>
-                <button id="cancela">Não</button>
-            
+            <p class="modal-text">Quer mesmo deletar toda a lista?</p>
+            <button id="confirma" class="confirma"
+                onclick="excluirLista()">Sim</button>
+            <button id="cancela" class="cancela">Não</button>
+        </div>
+    </div>
+
+    <div id="modal-alert2" class="modal">
+        <div class="modal-box">
+            <div><img id="img" src="assets/erro.png"></div>
+            <p class="modal-text">Quer mesmo deletar este item?</p>
+            <button id="ok" class="confirma">Sim</button>
+            <button id="not" class="cancela">Não</button>
         </div>
     </div>
 

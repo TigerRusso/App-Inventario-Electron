@@ -15,7 +15,13 @@ require('core-js/modules/es.symbol.async-iterator')
 require('regenerator-runtime/runtime')
 const excel = require('exceljs/dist/es5')
 
-// Funções do frama app
+
+const body = document.getElementById('full-table')
+body.onload = () => {
+    listItens()
+}
+
+// Funções do frame app
 function minimizar() {
     const win = remote.getCurrentWindow()
     win.minimize()
@@ -35,26 +41,37 @@ function fechar() {
     win.close()
 }
 
+// Forçando barra de títulos fixada
+const container = document.querySelector('.container-table')
+container.addEventListener('scroll', () => {
+    const barTitle = document.getElementById('bar-top-table-title')
+    barTitle.style.left = `-${container.scrollLeft.toString()}px`
+})
+
+
 function listItens() {
+    showLoad()
+    const tbody = document.querySelector('tbody')    
+    let data = ''
 
-    const tbody = document.querySelector('tbody')
-    let linhas = []
+    const readStream = fs.createReadStream(path.join(__dirname, 'itens.json')).setEncoding('utf-8')
+    readStream.on('data', chunk => {
+        data += chunk
+    })
 
-    fs.readFile(path.join(__dirname, 'itens.json'), 'utf-8', function (err, data) {
-        if (err) throw err;
+    readStream.on('end', () => {
 
-        const obj = JSON.parse(data)
-        let qtdObjs = obj.dados
+        data = JSON.parse(data)
 
-        for (let i = 0; i < qtdObjs.length; i++) {
+        for (let i = 0; i < data.dados.length; i++) {
             const tr = document.createElement('tr')
             let cont = 0
-            for (let key in qtdObjs[i]) {
+            for (let key in data.dados[i]) {
                 let td = document.createElement('td')
-                td.textContent = qtdObjs[i][key]
+                td.textContent = data.dados[i][key]
                 tr.appendChild(td)
 
-                if (cont == 16) {
+                if (cont == 31) {
                     var btn = document.createElement('button')
                     var img = document.createElement('img')
                     img.src = 'assets/close-btn.png'
@@ -66,74 +83,115 @@ function listItens() {
                 }
                 cont++
             }
-            tbody.appendChild(tr)
-            linhas.push(tr)
+            tbody.appendChild(tr)            
             getID(btn)
         }
+        closeLoad()
     })
+    
 }
 
 function deletaLinha(id) {
-    fs.readFile(path.join(__dirname, 'itens.json'), 'utf-8', function (err, data) {
-        if (err) throw err;
+    
+    let data = ''
 
-        const obj = JSON.parse(data)
-        for (let i = 0; i < obj.dados.length; i++) {
-            if (id == obj.dados[i].id) {
+    const readStream = fs.createReadStream(path.join(__dirname, 'itens.json')).setEncoding('utf-8')
+    readStream.on('data', chunk => {
+        data += chunk
+    })
+
+    readStream.on('end', () => {
+
+        data = JSON.parse(data)
+
+        for (let i = 0; i < data.dados.length; i++) {
+            if (id == data.dados[i].id) {
                 let index = parseInt(id)
+                data.dados.splice((index - 1), 1)
 
-                obj.dados.splice((index - 1), 1)
-                for (let i = 0; i < obj.dados.length; i++) {
-                    obj.dados[i].id = i + 1
+                for (let i = 0; i < data.dados.length; i++) {
+                    data.dados[i].id = i + 1
                 }
 
-                fs.writeFile(path.join(__dirname, 'itens.json'), JSON.stringify(obj, null, 4), 'utf-8', err => {
-                    if (err) throw err
-                })
+                const writeStream = fs.createWriteStream(path.join(__dirname, 'itens.json'))
+                writeStream.write(JSON.stringify(data, null, 4))
+                writeStream.end()
+                document.location.reload(true)
 
                 return
             }
         }
     })
-    document.location.reload(true)
 }
 
 function getID(btn) {
+
     btn.addEventListener('click', el => {
         let linha = el.path[2]
         linha = linha.childNodes[0]
         let id = linha.innerHTML
-
-        deletaLinha(id)
+        showModal2(id)
     })
 }
 
-// Modal pergunta se o usuário tem certeza da ação
+
+//Modal pergunta se o usuário tem certeza da ação
 function showModal() {
     const modal = document.getElementById("modal-alert")
     modal.classList.add('show')
 
-    const close = document.querySelector('.close')
-    close.addEventListener('click', () => {
+    const not = document.getElementById('cancela')
+    not.addEventListener('click', () => {
         modal.classList.remove('show')
-        
-            document.location.reload(true)
     })
 }
 
+function showModal2(id) {
+    const modal = document.getElementById("modal-alert2")
+    modal.classList.add('show')
+    const not = document.getElementById('not')
+    not.addEventListener('click', () => {
+        modal.classList.remove('show')
+    })
+    const ok = document.getElementById('ok')
+    ok.addEventListener('click', () => {
+        modal.classList.remove('show') 
+        showLoad()
+        deletaLinha(id)               
+    })
+}
+
+// Show loading 
+function showLoad() {
+    const load = document.querySelector('.load')
+    load.classList.add('show')
+}
+
+function closeLoad() {
+    const load = document.querySelector('.load')
+    load.classList.remove('show')
+}
+
+
 function excluirLista() {
-    fs.readFile(path.join(__dirname, 'itens.json'), 'utf-8', (err, data) => {
-        if (err) throw err
+    let data = ''
 
-        const obj = JSON.parse(data)
-        obj.dados.splice(0, obj.dados.length)
+    const readStream = fs.createReadStream(path.join(__dirname, 'itens.json')).setEncoding('utf-8')
+    readStream.on('data', chunk => {
+        data += chunk
+    })
 
-        fs.writeFile(path.join(__dirname, 'itens.json'), JSON.stringify(obj, null, 4), 'utf-8', err => {
-            if (err) throw err
-        })
+    readStream.on('end', () => {
+
+        data = JSON.parse(data)
+        data.dados.splice(0, data.dados.length)
+
+        const writeStream = fs.createWriteStream(path.join(__dirname, 'itens.json'))
+        writeStream.write(JSON.stringify(data, null, 4))
+        writeStream.end()
+        document.location.reload(true)
 
     })
-    document.location.reload(true)
 }
 
 function exportarExcel() {
@@ -150,25 +208,40 @@ function exportarExcel() {
         worksheet.columns = [
             { header: 'CRAAI', key: 'crai' },
             { header: 'Comarca', key: 'comarca' },
+            { header: 'Endereço', key: 'endereco' },
             { header: 'Órgão', key: 'orgao' },
+            { header: 'Usuário', key: 'user' },
+            { header: 'Matrícula', key: 'matricula' },
+            { header: 'Perfil do Usuário', key: 'tipoUser' },
+            { header: 'Patr. Micro', key: 'host' },
+            { header: 'Modelo do Micro', key: 'modeloHost' },
             { header: 'Sistema Operacional', key: 'sistema' },
             { header: 'Disco Rígido (MB)', key: 'hd' },
-            { header: 'Usuário', key: 'user' },
             { header: 'Memória RAM (MB)', key: 'ram' },
-            { header: 'Patr. Micro', key: 'host' },
-            { header: 'Patr. Estabilizador', key: 'estab' },
-            { header: 'Patr. Leitor', key: 'leitor' },
-            { header: 'Patr. 2º Leitor', key: 'leitor2' },
             { header: 'Patr. Monitor', key: 'monitor' },
+            { header: 'Modelo do Monitor', key: 'modeloMonitor' },
             { header: 'Patr. 2º Monitor', key: 'monitor2' },
+            { header: 'Modelo do 2º Monitor', key: 'modeloMonitor2' },
+            { header: 'Patr. Estabilizador', key: 'estab' },
+            { header: 'Modelo do Estabilizador', key: 'modeloEstab' },
             { header: 'Patr. Impressora', key: 'impressora' },
-            { header: 'Patr. Imp. Etiqueta', key: 'impEtiqueta' },
-            { header: 'Patr. Imp. Fiscal', key: 'impFiscal' }
+            { header: 'Modelo da Impressora', key: 'modeloImpressora' },
+            { header: 'Patr. Imp. Fiscal', key: 'impFiscal' },
+            { header: 'Modelo da Imp. Fiscal', key: 'modeloImpFiscal' },
+            { header: 'Patr. Imp. Térmica', key: 'impEtiqueta' },
+            { header: 'Modelo da Imp. Térmica', key: 'modeloImpEtiqueta' },
+            { header: 'Patr. Leitor', key: 'leitor' },
+            { header: 'Modelo do Leitor', key: 'modeloLeitor' },
+            { header: 'Scanner', key: 'scanner' },
+            { header: 'Modelo do Scanner', key: 'modeloScanner' },
+            { header: 'Patr. Outro Periférico', key: 'periferico' },
+            { header: 'Modelo do Periférico', key: 'modeloPeriferico' },
+            { header: 'Outras anotações', key: 'notas' }
         ]
 
         // Definindo largura das colunas de cabeçalho
         worksheet.columns.forEach(column => {
-            column.width = column.header.length < 12 ? 12 : column.header.length
+            column.width = column.header.length < 12 ? 15 : column.header.length
         })
 
         // Setando cabeçalho em negrito
@@ -193,6 +266,5 @@ function exportarExcel() {
         }).catch(err => {
             console.log(err)
         })
-
     })
 }
