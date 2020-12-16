@@ -87,14 +87,12 @@ function listItens() {
             getID(btn)
         }
         closeLoad()
-    })
-    
+    })    
 }
 
 function deletaLinha(id) {
     
     let data = ''
-
     const readStream = fs.createReadStream(path.join(__dirname, 'itens.json')).setEncoding('utf-8')
     readStream.on('data', chunk => {
         data += chunk
